@@ -1,5 +1,7 @@
 package com.squad15.armariointeligente.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.Column;
@@ -9,6 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -35,6 +38,15 @@ public class Usuario {
 	@ManyToOne
 	@JoinColumn(name = "tipo_usuario_id", nullable = false)
 	private TipoUsuario tipoUsuario;
+
+	@OneToMany(mappedBy = "usuario")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<Entrega> entregas;
+
+	@OneToMany(mappedBy = "usuario")
+	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+	private List<Mensagem> mensagens;
+
 	
 	public Usuario() {
 		

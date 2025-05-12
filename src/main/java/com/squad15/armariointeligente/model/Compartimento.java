@@ -1,5 +1,7 @@
 package com.squad15.armariointeligente.model;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
@@ -29,4 +31,9 @@ public class Compartimento {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JoinColumn(name = "id_armario", nullable = false)
     private Armario armario;
+
+    @OneToMany(mappedBy = "compartimento")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private List<Entrega> entregas;
+
 }
