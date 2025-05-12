@@ -1,6 +1,7 @@
 package com.squad15.armariointeligente.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+// import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import jakarta.persistence.*;
 
@@ -26,7 +27,7 @@ public class Compartimento {
     private String status;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JoinColumn(name = "id_armario", nullable = false)
     private Armario armario;
 }
