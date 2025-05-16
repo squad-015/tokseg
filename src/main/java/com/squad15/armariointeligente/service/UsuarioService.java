@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.squad15.armariointeligente.exception.BadRequestException;
@@ -18,6 +19,9 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
+	
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	private UsuarioRepository usuarioRepository;
@@ -45,6 +49,7 @@ public class UsuarioService {
                         usuario.getTipoUsuario().getId()));
 		
 		usuario.setTipoUsuario(tipoUsuario);
+		usuario.setSenha(passwordEncoder.encode(usuario.getSenha()));
 		return usuarioRepository.save(usuario);
 	}
 	
