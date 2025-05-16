@@ -10,6 +10,6 @@ public interface EntregaRepository extends JpaRepository<Entrega, Long> {
     
     List<Entrega> findByCompartimentoId(Long compartimentoId);
 
-    boolean existsCodigoRastreio(String codigoRastreio);
+    boolean existsByCodigoRastreio(String codigoRastreio);
     
 }

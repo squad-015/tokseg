@@ -75,7 +75,7 @@ public class EntregaService {
 
         if (entregaAtualizada.getCodigoRastreio() != null && !entregaAtualizada.getCodigoRastreio().isEmpty()
                 && !entregaAtualizada.getCodigoRastreio().equals(existente.getCodigoRastreio())) {
-            if (entregaRepository.existsCodigoRastreio(entregaAtualizada.getCodigoRastreio())) {
+            if (entregaRepository.existsByCodigoRastreio(entregaAtualizada.getCodigoRastreio())) {
                 throw new ResourceAlreadyExistsException("Entrega", "código de rastreio", entregaAtualizada.getCodigoRastreio());
             }
             existente.setCodigoRastreio(entregaAtualizada.getCodigoRastreio());
