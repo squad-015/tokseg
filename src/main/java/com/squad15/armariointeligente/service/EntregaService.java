@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.squad15.armariointeligente.exception.BadRequestException;
+import com.squad15.armariointeligente.exception.ResourceAlreadyExistsException;
 import com.squad15.armariointeligente.exception.ResourceNotFoundException;
 import com.squad15.armariointeligente.model.Compartimento;
 import com.squad15.armariointeligente.model.Entrega;
@@ -74,7 +75,7 @@ public class EntregaService {
 
         if (entregaAtualizada.getCodigoRastreio() != null && !entregaAtualizada.getCodigoRastreio().isEmpty()
                 && !entregaAtualizada.getCodigoRastreio().equals(existente.getCodigoRastreio())) {
-            if (entregaRepository.existsByCodigoRastreio(entregaAtualizada.getCodigoRastreio())) {
+            if (entregaRepository.existsCodigoRastreio(entregaAtualizada.getCodigoRastreio())) {
                 throw new ResourceAlreadyExistsException("Entrega", "código de rastreio", entregaAtualizada.getCodigoRastreio());
             }
             existente.setCodigoRastreio(entregaAtualizada.getCodigoRastreio());
