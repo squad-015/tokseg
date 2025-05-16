@@ -68,6 +68,34 @@ public class EntregaService {
     }
 
     @Transactional
+    public Entrega atualizarEntrega(Long id, Entrega entregaAtualizada) {
+        Entrega existente = entregaRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Entrega", "id", id));
+
+        if (entregaAtualizada.getCodigoRastreio() != null && !entregaAtualizada.getCodigoRastreio().isEmpty()
+                && !entregaAtualizada.getCodigoRastreio().equals(existente.getCodigoRastreio())) {
+            if (entregaRepository.existsByCodigoRastreio(entregaAtualizada.getCodigoRastreio())) {
+                throw new ResourceAlreadyExistsException("Entrega", "código de rastreio", entregaAtualizada.getCodigoRastreio());
+            }
+            existente.setCodigoRastreio(entregaAtualizada.getCodigoRastreio());
+        }
+
+        if (entregaAtualizada.getUsuario() != null && entregaAtualizada.getUsuario().getId() != null) {
+            Usuario usuario = usuarioRepository.findById(entregaAtualizada.getUsuario().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Usuário", "id", entregaAtualizada.getUsuario().getId()));
+            existente.setUsuario(usuario);
+        }
+
+        if (entregaAtualizada.getCompartimento() != null && entregaAtualizada.getCompartimento().getId() != null) {
+            Compartimento compartimento = compartimentoRepository.findById(entregaAtualizada.getCompartimento().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Compartimento", "id", entregaAtualizada.getCompartimento().getId()));
+            existente.setCompartimento(compartimento);
+        }
+
+        return entregaRepository.save(existente);
+    }
+
+    @Transactional
     public void deletarEntrega(Long id) {
         if (!entregaRepository.existsById(id)) {
             throw new ResourceNotFoundException("Entrega", "id", id);
