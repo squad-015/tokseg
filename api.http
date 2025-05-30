@@ -1,0 +1,293 @@
+### Variáveis
+@baseUrl = http://localhost:8080
+@authToken = {{login.response.body.data.token}}
+
+@userId = {{register.response.body.data.id}}
+
+
+### Autenticação
+
+# @name login
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "admin@exemplo.com",
+  "password": "senha123"
+}
+### Registro 
+
+# @name register
+POST {{baseUrl}}/api/auth/register
+Content-Type: application/json
+
+{
+  "nome": "Administrador",
+  "email": "admin@exemplo.com",
+  "senha": "senha123",
+  "telefone": "(11) 99999-9999",
+  "tipoUsuarioId": 2
+}
+
+### Recuperação de senha
+POST {{baseUrl}}/auth/recoverpassword
+Content-Type: application/json
+
+{
+  "email": "admin@example.com"
+}
+
+### Condomínios
+
+### Listar todos os condomínios
+GET {{baseUrl}}/condominium
+Authorization: Bearer {{authToken}}
+
+### Obter condomínio por ID
+GET {{baseUrl}}/condominium/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Criar condomínio
+POST {{baseUrl}}/condominium
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Residencial Jardim das Flores",
+  "address": "Rua das Flores, 123",
+  "telephone": "81999999999"
+}
+
+### Atualizar condomínio
+PUT {{baseUrl}}/condominium/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Residencial Jardim das Flores Atualizado",
+  "address": "Rua das Flores, 123",
+  "telephone": "81999999999"
+}
+
+### Excluir condomínio
+DELETE {{baseUrl}}/condominium/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Blocos
+
+### Listar todos os blocos
+GET {{baseUrl}}/block
+Authorization: Bearer {{authToken}}
+
+### Obter bloco por ID
+GET {{baseUrl}}/block/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Obter blocos por condomínio
+GET {{baseUrl}}/block/getByIdCondominium/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Criar bloco
+POST {{baseUrl}}/block
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Bloco A",
+  "condominiumId": "550e8400-e29b-41d4-a716-446655440000"
+}
+
+### Atualizar bloco
+PUT {{baseUrl}}/block/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "name": "Bloco A Atualizado",
+  "condominiumId": "550e8400-e29b-41d4-a716-446655440000"
+}
+
+### Excluir bloco
+DELETE {{baseUrl}}/block/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Apartamentos
+
+### Listar todos os apartamentos
+GET {{baseUrl}}/api/v1/apartments
+Authorization: Bearer {{authToken}}
+
+### Obter apartamento por ID
+GET {{baseUrl}}/api/v1/apartments/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Obter apartamentos por bloco
+GET {{baseUrl}}/api/v1/apartments/getByIdBlock/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Obter apartamentos por usuário
+GET {{baseUrl}}/api/v1/apartments/getByIdUser/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Criar apartamento
+POST {{baseUrl}}/api/v1/apartments
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "blockId": "550e8400-e29b-41d4-a716-446655440000",
+  "userId": {{userId}},
+  "apartmentNumber": "101"
+}
+
+### Atualizar apartamento
+PUT {{baseUrl}}/api/v1/apartments/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "blockId": "550e8400-e29b-41d4-a716-446655440000",
+  "userId": {{userId}},
+  "apartmentNumber": "102"
+}
+
+### Excluir apartamento
+DELETE {{baseUrl}}/api/v1/apartments/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Armários (Cabinets)
+
+### Listar todos os armários
+GET {{baseUrl}}/cabinet
+Authorization: Bearer {{authToken}}
+
+### Obter armário por ID
+GET {{baseUrl}}/cabinet/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Obter armários por condomínio
+GET {{baseUrl}}/cabinet/getByIdCondominium/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Criar armário
+POST {{baseUrl}}/cabinet
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "condominiumId": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Armário Principal",
+  "location": "Hall de Entrada",
+  "status": true
+}
+
+### Atualizar armário
+PUT {{baseUrl}}/cabinet/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "condominiumId": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Armário Principal Atualizado",
+  "location": "Hall de Entrada",
+  "status": true
+}
+
+### Excluir armário
+DELETE {{baseUrl}}/cabinet/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Compartimentos
+
+### Listar todos os compartimentos
+GET {{baseUrl}}/compartment
+Authorization: Bearer {{authToken}}
+
+### Obter compartimento por ID
+GET {{baseUrl}}/compartment/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Obter compartimentos por armário
+GET {{baseUrl}}/compartment/getByIdCabinet/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Criar compartimento
+POST {{baseUrl}}/compartment
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "cabinetId": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Compartimento 1",
+  "size": "SMALL",
+  "isOccupied": false
+}
+
+### Atualizar compartimento
+PUT {{baseUrl}}/compartment/550e8400-e29b-41d4-a716-446655440000
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "cabinetId": "550e8400-e29b-41d4-a716-446655440000",
+  "name": "Compartimento 1 Atualizado",
+  "size": "MEDIUM",
+  "isOccupied": true
+}
+
+### Excluir compartimento
+DELETE {{baseUrl}}/compartment/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Entregadores
+
+### Listar todos os entregadores
+GET {{baseUrl}}/deliveryperson
+Authorization: Bearer {{authToken}}
+
+### Obter entregador por ID
+GET {{baseUrl}}/deliveryperson/550e8400-e29b-41d4-a716-446655440000
+Authorization: Bearer {{authToken}}
+
+### Criar entregador
+POST {{baseUrl}}/deliveryperson
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "email": "entregador@example.com",
+  "password": "senha123",
+  "telephone": "81999999999",
+  "name": "João Entregador",
+  "cpf": "80383440572"
+}
+
+### Pacotes de Entrega
+
+### Listar todos os pacotes
+GET {{baseUrl}}/deliverypackage
+Authorization: Bearer {{authToken}}
+
+### Criar pacote de entrega
+POST {{baseUrl}}/deliverypackage
+Content-Type: application/json
+Authorization: Bearer {{authToken}}
+
+{
+  "compartmentId": "550e8400-e29b-41d4-a716-446655440000",
+  "apartmentId": "550e8400-e29b-41d4-a716-446655440000",
+  "deliveryPersonId": "550e8400-e29b-41d4-a716-446655440000",
+  "description": "Pacote de livros"
+}
+
+### Notificações
+
+### Listar todas as notificações
+GET {{baseUrl}}/notification
+Authorization: Bearer {{authToken}}
+
+### Usuários
+
+### Listar todos os usuários
+GET {{baseUrl}}/user
+Authorization: Bearer {{authToken}}
