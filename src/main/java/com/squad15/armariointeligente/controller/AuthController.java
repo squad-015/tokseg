@@ -5,17 +5,13 @@ import com.squad15.armariointeligente.model.TipoUsuario;
 import com.squad15.armariointeligente.model.Usuario;
 import com.squad15.armariointeligente.repository.TipoUsuarioRepository;
 import com.squad15.armariointeligente.repository.UsuarioRepository;
-import com.squad15.armariointeligente.util.CustomUserDetailsService;
 import com.squad15.armariointeligente.util.JwtUtil;
 import jakarta.validation.Valid;
-import java.time.LocalDateTime;
-import java.util.HashSet;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,9 +21,6 @@ public class AuthController {
 
     @Autowired
     private AuthenticationManager authenticationManager;
-
-    @Autowired
-    private CustomUserDetailsService userDetailsService;
 
     @Autowired
     UsuarioRepository usuarioRepository;
