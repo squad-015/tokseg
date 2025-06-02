@@ -18,47 +18,47 @@ import jakarta.transaction.Transactional;
 
 @Service
 public class UsuarioService {
-	
-	@Autowired
-	private UsuarioRepository usuarioRepository;
-	
-	@Autowired
-	private TipoUsuarioRepository tipoUsuarioRepository;
-	
-	@Transactional
-	public Usuario criarUsuario(Usuario usuario) {
-		if (usuario == null) {
-			throw new BadRequestException("Usuário não pode ser nulo");
-		}
-		if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
-			throw new BadRequestException("Email não pode ser nulo ou vazio");
-		}
-		if(usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
-			throw new ResourceAlreadyExistsException("Usuário", "email", usuario.getEmail());
-		}
-		if (usuario.getTipoUsuario() == null || usuario.getTipoUsuario().getId() == null) {
-			throw new BadRequestException("Tipo de usuário é obrigatório");
-		}
-		
-		TipoUsuario tipoUsuario = tipoUsuarioRepository.findById(usuario.getTipoUsuario().getId())
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private TipoUsuarioRepository tipoUsuarioRepository;
+
+    @Transactional
+    public Usuario criarUsuario(Usuario usuario) {
+        if (usuario == null) {
+            throw new BadRequestException("Usuário não pode ser nulo");
+        }
+        if (usuario.getEmail() == null || usuario.getEmail().isEmpty()) {
+            throw new BadRequestException("Email não pode ser nulo ou vazio");
+        }
+        if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
+            throw new ResourceAlreadyExistsException("Usuário", "email", usuario.getEmail());
+        }
+        if (usuario.getTipoUsuario() == null || usuario.getTipoUsuario().getId() == null) {
+            throw new BadRequestException("Tipo de usuário é obrigatório");
+        }
+
+        TipoUsuario tipoUsuario = tipoUsuarioRepository.findById(usuario.getTipoUsuario().getId())
                 .orElseThrow(() -> new ResourceNotFoundException("Tipo de usuário", "id",
                         usuario.getTipoUsuario().getId()));
-		
-		usuario.setTipoUsuario(tipoUsuario);
-		return usuarioRepository.save(usuario);
-	}
-	
-	@Transactional
-	public List<Usuario> listarUsuarios() {
-		return usuarioRepository.findAll();
-	}
-	
-	@Transactional
-	public Optional<Usuario> buscarUsuarioPorId(Long id) {
-		return usuarioRepository.findById(id);
-	}
-	
-	@Transactional
+
+        usuario.setTipoUsuario(tipoUsuario);
+        return usuarioRepository.save(usuario);
+    }
+
+    @Transactional
+    public List<Usuario> listarUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
+    @Transactional
+    public Optional<Usuario> buscarUsuarioPorId(Long id) {
+        return usuarioRepository.findById(id);
+    }
+
+    @Transactional
     public Usuario atualizarUsuario(Long id, Usuario usuario) {
         Usuario usuarioExistente = usuarioRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Usuário", "id", id));
@@ -98,13 +98,13 @@ public class UsuarioService {
 
         return usuarioRepository.save(usuarioExistente);
     }
-	
-	@Transactional
-	public void deletarUsuario(Long id) {
-		if (!usuarioRepository.existsById(id)) {
-			throw new ResourceNotFoundException("Usuário", "id", id);
-		}
-		usuarioRepository.deleteById(id);
-	}
+
+    @Transactional
+    public void deletarUsuario(Long id) {
+        if (!usuarioRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Usuário", "id", id);
+        }
+        usuarioRepository.deleteById(id);
+    }
 
 }
