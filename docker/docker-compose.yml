@@ -5,9 +5,9 @@ services:
     image: postgres:15-alpine
     container_name: armario_db
     environment:
-      POSTGRES_DB: armariodb
-      POSTGRES_USER: postgres_user
-      POSTGRES_PASSWORD: postgres_password
+      POSTGRES_DB: tokseg
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
     ports:
       - "5432:5432"
     volumes:
@@ -23,9 +23,9 @@ services:
     depends_on:
       - postgres
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/armariodb
-      SPRING_DATASOURCE_USERNAME: postgres_user
-      SPRING_DATASOURCE_PASSWORD: postgres_password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/tokseg
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
     ports:
       - "8080:8080"
