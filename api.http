@@ -12,8 +12,8 @@ POST {{baseUrl}}/api/auth/login
 Content-Type: application/json
 
 {
-  "email": "admin@exemplo.com",
-  "password": "senha123"
+  "email": "admin@example.com",
+  "password": "123456"
 }
 ### Registro 
 
@@ -26,7 +26,7 @@ Content-Type: application/json
   "email": "admin@exemplo.com",
   "senha": "senha123",
   "telefone": "(11) 99999-9999",
-  "tipoUsuarioId": 2
+  "tipoUsuarioId": 1
 }
 
 ### Recuperação de senha

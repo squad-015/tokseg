@@ -6,6 +6,7 @@ import com.squad15.armariointeligente.util.CustomUserDetailsService;
 import com.squad15.armariointeligente.util.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -33,8 +34,8 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         // Endpoints públicos
-                        .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/error").permitAll()
+                        .requestMatchers(HttpMethod.POST,"/api/auth/**").permitAll()
+                        .requestMatchers(HttpMethod.GET,"/error").permitAll()
                         // Demais endpoints requerem autenticação
                         .anyRequest().authenticated())
                 .exceptionHandling(exception -> exception.accessDeniedHandler(accessDeniedHandler)
