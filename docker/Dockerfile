@@ -6,5 +6,7 @@ RUN mvn clean package -DskipTests
 
 FROM eclipse-temurin:17-jre-alpine
 COPY --from=build-image /app/source/target/*.jar /app/app.jar
+COPY --from=build-image /app/source/src/main/resources/schema.sql /app/schema.sql
+COPY --from=build-image /app/source/src/main/resources/data.sql /app/data.sql
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["java", "-jar", "/app/app.jar", "--spring.profiles.active=docker"]
